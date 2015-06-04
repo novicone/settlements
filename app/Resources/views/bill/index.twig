@@ -1,0 +1,39 @@
+{% extends "layout.twig" %}
+{% block title bill.title %}
+{% block content %}
+    <h2>{{ bill.title }}</h2>
+    <h3>Uczestnicy</h3>
+    <ul>
+        {% for participant in bill.participants %}
+            <li>{{ participant }}</li>
+        {% endfor %}
+    </ul>
+    <h3>Zakupy</h3>
+    <ul>
+        {% for expense in bill.expenses %}
+        <li>
+            <h4>{{ expense.name }}</h4>
+            <ul>
+                {% for payment in expense.payments %}
+                    <li>{{ payment.payer }} zapłacił {{ payment.amount }} zł</li>
+                {% endfor %}
+                <li>Skorzystali:</li>
+                <ul>
+                    {% for beneficiary in expense.beneficiaries %}
+                        <li>{{ beneficiary }}</li>
+                    {% endfor %}
+                </ul>
+            </ul>
+            <a href="{{ path("bill/replace-expense", { id: bill.id, name: expense.name }) }}">Zmień</a>
+            <a href="{{ path("bill/remove-expense", { id: bill.id, name: expense.name }) }}">Usuń</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <h3>Długi</h3>
+    <ul>
+        {% for debt in bill.debts %}
+            <li>dłużnik: {{ debt.debtor }}, wierzyciel: {{ debt.creditor }}, kwota: {{ debt.amount }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ path("bill/add-expense", { id: bill.id }) }}">Dodaj</a>
+{% endblock %}

@@ -1,0 +1,17 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+    bill_repository:
+        class: AppBundle\Repository\DatabaseBillOfChargesRepository
+        arguments: ["@database_connection"]
+
+    bill_editor:
+        class: Settlements\Application\BillOfChargesEditor
+        arguments: ["@bill_repository"]
+
+    bill_facade:
+        class: AppBundle\Facade\BillFacade
+        arguments: ["@bill_repository", "@bill_editor"]

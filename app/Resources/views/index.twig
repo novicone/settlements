@@ -1,0 +1,9 @@
+{% extends "layout.twig" %}
+{% block title "witaj!" %}
+{% block content %}
+    <h2>Nowe rozliczenie</h2>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+{% endblock %}
